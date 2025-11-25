@@ -4,6 +4,7 @@ NÃO É PERMITIDO APAGAR CARACTERES OS CARACTERES SEPARADORES (===) E/OU ENUNCIA
 ===========================
 EXERCÍCIO 1 (PL/pgSQL)
 CRIAÇÃO DO DATABASE
+CREATE DATABASE "dw_video_game";
 
 ===========================
 EXERCÍCIO 2 (PL/pgSQL)
