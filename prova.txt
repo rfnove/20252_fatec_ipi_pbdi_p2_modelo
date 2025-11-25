@@ -9,7 +9,28 @@ CREATE DATABASE "dw_video_game";
 ===========================
 EXERCÍCIO 2 (PL/pgSQL)
 CRIAÇÃO DAS TABELAS DIMENSÃO
+CREATE TABLE dim_tempo ( 
 
+    data_key INTEGER PRIMARY KEY, 
+    ano INTEGER
+    );
+
+CREATE TABLE dim_jogo(
+    jogo_key SERIAL PRIMARY KEY,
+    nome_jogo VARCHAR(5000),
+    nome_publisher VARCHAR(5000),
+    ano_lancamento INT,
+    genero VARCHAR(500),
+    plataforma_key INTEGER REFERENCES dim_plataforma(plataforma_key)
+
+
+);
+
+CREATE TABLE dim_plataforma(
+    plataforma_key SERIAL PRIMARY KEY,
+    nome_plataforma VARCHAR(200)
+
+);
 ===========================
 EXERCÍCIO 3 (PL/pgSQL)
 CRIAÇÃO DA TABELA FATO
