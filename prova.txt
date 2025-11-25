@@ -52,11 +52,29 @@ df = pd.read_csv("20252_fatec_ipi_pbdi_p2_modelo/vgsales.csv")
 ===========================
 EXERCÍCIO 5 (PYTHON)
 TRANSFORMAÇÕES NECESSÁRIAS, INCLUINDO GERAÇÃO DE CHAVES
-
+df = df.dropna(subset=['Year', 'Publisher'])
+    
+    df['Year'] = df['Year'].astype(int)
+    df["data_key"] = df["Year"]
+    df["plataforma_key"] = df["Platform"].astype('category').cat.codes + 1
+    df["jogo_key"] = range(1, len(df) + 1)
+    
 ===========================
 EXERCÍCIO 6 (PYTHON)
 CONEXÃO COM O BANCO (PYTHON)
 
+import psycopg2
+
+try:
+    conn = psycopg2.connect(
+        host="localhost",
+        database="dw_video_game",
+        user="postgres",
+        password="123456" 
+    )
+    conn.autocommit = True
+    cur = conn.cursor()
+    
 ===========================
 EXERCÍCIO 7 (PYTHON)
 CADASTRO DE DIMENSÕES
