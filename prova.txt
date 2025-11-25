@@ -34,7 +34,17 @@ CREATE TABLE dim_plataforma(
 ===========================
 EXERCÍCIO 3 (PL/pgSQL)
 CRIAÇÃO DA TABELA FATO
-
+CREATE TABLE fato_venda(
+    RANK INT,
+    jogo_key INTEGER REFERENCES dim_jogo(jogo_key),
+    plataforma_key INTEGER REFERENCES dim_plataforma(plataforma_key),
+    data_key INTEGER REFERENCES dim_tempo(data_key),
+    NA_sales DECIMAL(10,2),
+    EU_sales DECIMAL (10,2),
+    JP_sales DECIMAL (10,2),
+    other_sales DECIMAL(10,2)
+    
+);
 ===========================
 EXERCÍCIO 4 (PYTHON)
 CARGA DO ARQUIVO CSV COM PANDAS
