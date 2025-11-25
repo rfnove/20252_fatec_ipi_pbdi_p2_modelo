@@ -74,11 +74,47 @@ try:
     )
     conn.autocommit = True
     cur = conn.cursor()
-    
+
 ===========================
 EXERCÍCIO 7 (PYTHON)
 CADASTRO DE DIMENSÕES
+    dim_tempo = df[["data_key", "Year"]].drop_duplicates()
+    for _, row in dim_tempo.iterrows():
+        cur.execute("""
+            INSERT INTO dim_tempo (data_key, ano) VALUES (%s, %s)
+            ON CONFLICT (data_key) DO NOTHING;
+        """, (row["data_key"], row["Year"]))
 
+
+    dim_plataforma = df[["plataforma_key", "Platform"]].drop_duplicates()
+    for _, row in dim_plataforma.iterrows():
+        cur.execute("""
+            INSERT INTO dim_plataforma (plataforma_key, nome_plataforma) VALUES (%s, %s)
+            ON CONFLICT (plataforma_key) DO NOTHING;
+        """, (row["plataforma_key"], row["Platform"]))
+
+
+    dim_jogo = df[["jogo_key", "Name", "Publisher", "Year", "Genre", "plataforma_key"]].drop_duplicates(subset=["jogo_key"])
+    
+   
+
+    for _, row in dim_jogo.iterrows():
+        cur.execute("""
+            INSERT INTO dim_jogo (jogo_key, nome_jogo, nome_publisher, ano_lancamento, genero, plataforma_key)
+            VALUES (%s, %s, %s, %s, %s, %s)
+            ON CONFLICT (jogo_key) DO NOTHING;
+        """, (row["jogo_key"], row["Name"], row["Publisher"], row["Year"], row["Genre"], row["plataforma_key"]))
+        
 ===========================
 EXERCÍCIO 8 (PYTHON)
 CADASTRO DE DADOS NA TABELA FATO
+fato = df[["Rank", "jogo_key", "plataforma_key", "data_key", "NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales"]]
+    
+    for _, row in fato.iterrows():
+        cur.execute("""
+            INSERT INTO fato_venda (RANK, jogo_key, plataforma_key, data_key, NA_sales, EU_sales, JP_sales, other_sales)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
+        """, (row["Rank"], row["jogo_key"], row["plataforma_key"], row["data_key"], row["NA_Sales"], row["EU_Sales"], row["JP_Sales"], row["Other_Sales"]))
+
+    print("Sucesso no upload")
+    conn.close()
