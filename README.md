@@ -7,8 +7,7 @@
 
 | Nome completo | RA |
 |:--------------|:---|
-|                |     |
-|                |     |
-|                |     |
-|                |     |
-|                |     |
+|Renato Fausto                |  2041382421008   |
+|Bruno Pereira                |  2041382421009   |
+|Cauan Santos                 |  2041382421026   |
+
